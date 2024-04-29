@@ -6,6 +6,15 @@ const props = defineProps<{
 	data: any;
 }>();
 
+const showChart = ref(true);
+const redrawChart = () => {
+	showChart.value = false;
+
+	nextTick(() => {
+		showChart.value = true;
+	});
+};
+
 const chartOptions = {
 	series: [
 		{
@@ -24,6 +33,8 @@ watch(
 	async () => {
 		chartOptions.series[0].data = props.data.list.map((item: any) => item.main.temp);
 		chartOptions.title.text = `Temperature Forecast for ${props.data.city.name}`;
+
+		redrawChart();
 	},
 	{ immediate: true }
 );
@@ -31,7 +42,7 @@ watch(
 
 <template>
 	<div>
-		<Chart class="hc" :options="chartOptions as Options" ref="chart"></Chart>
+		<Chart v-if="showChart" class="hc" :options="chartOptions as Options" ref="chart"></Chart>
 	</div>
 </template>
 
