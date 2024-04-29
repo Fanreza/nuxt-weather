@@ -65,14 +65,14 @@ const searchCity = async (city: string) => {
 </script>
 
 <template>
-	<div class="p-20">
+	<div class="p-5 md:p-10 xl:p-20">
 		<HomeComponentsSearchCity @search="searchCity" :disabled="searchCityLoading" />
 
-		<div class="flex items-center gap-10 justify-center mt-20">
+		<div class="flex flex-col md:flex-row items-center gap-10 justify-center mt-20">
 			<ClientOnly>
-				<HomeComponentsWeatherChart v-if="forecastData" :data="forecastData" class="w-[50%]" />
+				<HomeComponentsWeatherChart v-if="forecastData" :data="forecastData" class="w-[80%] md:w-[50%]" />
 			</ClientOnly>
-			<HomeComponentsWeatherCard v-if="weatherData" :data="weatherData" class="w-[30%]" />
+			<HomeComponentsWeatherCard v-if="weatherData" :data="weatherData" class="w-[80%] md:w-[30%]" />
 		</div>
 		<HomeComponentsWeatherMap v-if="lat && lon" :lat="lat" :lon="lon" :allow-location="allowLocation" />
 	</div>
